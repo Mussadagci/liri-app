@@ -20,12 +20,12 @@ for (var i = 3; i < arg.length; i++) {
     reference.push(arg[i])
 
 }
-var refrenceBand = refrence.join("");
+var refrenceBand = reference.join("");
 // end of Refrence
 
 // loggin full command
 fullCommand.push(command);
-if (refrence.length != 0) {
+if (reference.length != 0) {
     fullCommand.push(refrenceBand);
 }
 
@@ -62,13 +62,14 @@ function concert(referenceBand) {
             console.log("*********GETTING***BAND/ARTIST***INFO: " + referenceBand + " ************");
             for (var i = 0; i < response.data.length; i++) {
 
-                var datatime = response.data[i].datatime; //save datatime response into a variable
+                var datatime = response.data[i].datetime; //save datatime response into a variable
+                console.log(datatime)
                 var dataArr = datatime.split('T'); //splits the date and time in the response
 
                 var concertResults =
                     "----------------------------------------------------------------------" +
                     "\nVanue Name: " + response.data[i].venue.name +
-                    "\nvanue  Location: " + response.data[i].vanue.city +
+                    "\nvanue  Location: " + response.data[i].venue.city +
                     "\nData of the Event: " + moment(dataArr[0], "YYYY-DO-MM").format('DD/MM/YYYY')
             } console.log(concertResults);
             console.log("  ");
@@ -92,7 +93,7 @@ function spotifySong(reference) {
         .search({ type: 'track', query: reference })
         .then(function (response) {
             console.log(" ");
-            console.log("***********SPOTIFYING********" + refrence + "*************");
+            console.log("***********SPOTIFYING********" + reference+ "*************");
             console.log("  ");
             for (var i = 0; i < 5; i++) {
                 var spotifyResults =
@@ -132,11 +133,11 @@ function movie(reference) {
     if (reference.length === 0) {
         reference = "mr nobody";
     }
-    axios.get('http://www.omdbapi.com/?t=' + reference + '&plot=short&apikey=trilgy').then(
+    axios.get('http://www.omdbapi.com/?t=' + reference + '&plot=short&apikey=trilogy').then(
         function (response) {
             var rotten = response.data.Ratings[1]
             //console.log('this is the rotten value : "+rotten")
-            if (rotten === underfined) { rotten = "Not avaliable" }
+            if (rotten === undefined) { rotten = "Not avaliable" }
             else { rotten = response.data.Ratings[1].Value; }
             console.log(" ");
             console.log("-----------MOVIE--INFORMATION--FOR-------" + response.data.Title + "----------");
